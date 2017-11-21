@@ -5,9 +5,9 @@
 def ones_in_binary_representation(x):
 	count = 0
 	while x != 0:
-		if x % 2 == 1:
+		if x & 1 == 1:  # bitwise and, we could use  x % 2 ==1, but bit operation si faster
 			count += 1
-		x = x // 2
+		x = x >> 1		#  bitshift to the right by 1 place, we could use x = x // 2
 
 	return count
 
