@@ -37,6 +37,10 @@ class MaxStack(object):
 		return value
 
 	def max(self):
+		if self.head is None:
+			return None
+
+		
 		return self.head.max_so_far
 
 
