@@ -33,7 +33,8 @@ def quick_sort_wrapper(lst):
 	return quick_sort(lst, 0, len(lst)-1)
 
 
-# implementation 2, using the last element in the array as the pivot
+"""implementation 2, using the last element in the array as the pivot
+"""
 def partition_2(lst, start, end):
 	wall, pivot = start-1, end
 	for i in range(start, pivot):
@@ -59,7 +60,38 @@ def quick_sort_2(lst, start, end):
 def quick_sort_wrapper_2(lst):
 	return quick_sort_2(lst, 0, len(lst)-1)
 
+
+"""implementation 3 using a random index as the pivot each time
+"""
+def partition_3(lst, start, end):
+	pivot, wall = random.sample(range(start, end+1), 1)[0], start-1
+	lst[end], lst[pivot] = lst[pivot], lst[end]
+	pivot_value = lst[end]
+	for i in range(start, end):
+		if lst[i] < pivot_value:
+			wall += 1
+			lst[wall], lst[i] = lst[i], lst[wall]
+
+	if lst[wall + 1] >= lst[end]:
+		lst[wall+1], lst[end] = lst[end], lst[wall+1]
+
+	return wall + 1
+
+def quick_sort_3(lst, start, end):
+	if start >= end:
+		return
+	pivot = partition_3(lst, start, end)
+	quick_sort_3(lst, start, pivot-1)
+	quick_sort_3(lst, pivot+1, end)
+
+
+
+def quick_sort_wrapper_3(lst):
+	return quick_sort_3(lst, 0, len(lst)-1)
+
+
+
 l= [3,1,2,4,2,2,4]
 # quick_sort([1],0,0)
-quick_sort_wrapper_2(l)
+quick_sort_wrapper_3(l)
 print(l)
