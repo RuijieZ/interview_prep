@@ -96,13 +96,13 @@ def quick_sort_wrapper_3(lst):
 """ Quick sort implementation 4, using multi-thread to sort the python program
 """
 def quick_sort_4(lst, start, end, depth):
-	pivot = partition_3(lst, start, end)
+	pivot = partition_2(lst, start, end)
 	if depth == 3:	# do not create new threads after depth reaches 3
-		quick_sort_3(lst, start, pivot-1)
-		quick_sort_3(lst, pivot+1, end)
+		quick_sort_2(lst, start, pivot-1)
+		quick_sort_2(lst, pivot+1, end)
 	else:
 		t = threading.Thread(target=quick_sort_4, args=(lst,start,pivot-1, depth+1))
-		quick_sort_3(lst, pivot+1, end)
+		quick_sort_2(lst, pivot+1, end)
 
 
 def quick_sort_wrapper_4(lst):
@@ -110,18 +110,19 @@ def quick_sort_wrapper_4(lst):
 
 
 
-l= [3,1,2,4,2,2,4]
-l = list(range(1,1000000))
+# l= [3,1,2,4,2,2,4]
+
+# test the performance of sequential sorting vs concurrent sorting
+l = list(range(1,10000000))
 shuffle(l)
 # quick_sort([1],0,0)
-import time
 start_time = time.time()
 quick_sort_wrapper_4(l)
 print("--- %s seconds ---" % (time.time() - start_time))
-
+print(l)
 shuffle(l)
 start_time = time.time()
-quick_sort_wrapper_3(l)
+quick_sort_wrapper_2(l)
 print("--- %s seconds ---" % (time.time() - start_time))
 
 
