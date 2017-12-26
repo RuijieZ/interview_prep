@@ -1,4 +1,7 @@
 import random
+import threading
+import time
+from random import shuffle
 
 # implementation 1, using the first element in the array as the pivot
 def partition(lst, start, end):
@@ -90,7 +93,37 @@ def quick_sort_wrapper_3(lst):
 	return quick_sort_3(lst, 0, len(lst)-1)
 
 
+""" Quick sort implementation 4, using multi-thread to sort the python program
+"""
+def quick_sort_4(lst, start, end, depth):
+	pivot = partition_3(lst, start, end)
+	if depth == 3:	# do not create new threads after depth reaches 3
+		quick_sort_3(lst, start, pivot-1)
+		quick_sort_3(lst, pivot+1, end)
+	else:
+		t = threading.Thread(target=quick_sort_4, args=(lst,start,pivot-1, depth+1))
+		quick_sort_3(lst, pivot+1, end)
+
+
+def quick_sort_wrapper_4(lst):
+	return quick_sort_4(lst, 0, len(lst)-1, 0)
+
+
+
 l= [3,1,2,4,2,2,4]
+l = list(range(1,1000000))
+shuffle(l)
 # quick_sort([1],0,0)
+import time
+start_time = time.time()
+quick_sort_wrapper_4(l)
+print("--- %s seconds ---" % (time.time() - start_time))
+
+shuffle(l)
+start_time = time.time()
 quick_sort_wrapper_3(l)
-print(l)
+print("--- %s seconds ---" % (time.time() - start_time))
+
+
+
+# print(l)
