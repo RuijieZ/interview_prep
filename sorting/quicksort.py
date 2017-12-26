@@ -90,7 +90,6 @@ def quick_sort_wrapper_3(lst):
 	return quick_sort_3(lst, 0, len(lst)-1)
 
 
-
 l= [3,1,2,4,2,2,4]
 # quick_sort([1],0,0)
 quick_sort_wrapper_3(l)
