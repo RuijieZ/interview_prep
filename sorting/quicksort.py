@@ -2,6 +2,7 @@ import random
 import threading
 import time
 from random import shuffle
+from copy import deepcopy
 
 # implementation 1, using the first element in the array as the pivot
 def partition(lst, start, end):
@@ -115,15 +116,20 @@ def quick_sort_wrapper_4(lst):
 # test the performance of sequential sorting vs concurrent sorting
 l = list(range(1,10000000))
 shuffle(l)
+l_cp = deepcopy(l)
 # quick_sort([1],0,0)
 start_time = time.time()
 quick_sort_wrapper_4(l)
-print("--- %s seconds ---" % (time.time() - start_time))
-print(l)
-shuffle(l)
+print("quicksort parellel: --- %s seconds ---" % (time.time() - start_time))
+l = deepcopy(l_cp)
 start_time = time.time()
 quick_sort_wrapper_2(l)
-print("--- %s seconds ---" % (time.time() - start_time))
+print("quicksort sequential: --- %s seconds ---" % (time.time() - start_time))
+from radixsort import radix_sort
+l = deepcopy(l_cp)
+start_time = time.time()
+l=radix_sort(l)
+print("Radix sort: --- %s seconds ---" % (time.time() - start_time))
 
 
 
