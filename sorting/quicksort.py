@@ -130,6 +130,11 @@ l = deepcopy(l_cp)
 start_time = time.time()
 l=radix_sort(l)
 print("Radix sort: --- %s seconds ---" % (time.time() - start_time))
+from countingsort import countingsort
+l = deepcopy(l_cp)
+start_time = time.time()
+l=countingsort(l)
+print("Counting sort: --- %s seconds ---" % (time.time() - start_time))
 
 
 
