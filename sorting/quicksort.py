@@ -135,6 +135,11 @@ l = deepcopy(l_cp)
 start_time = time.time()
 l=countingsort(l)
 print("Counting sort: --- %s seconds ---" % (time.time() - start_time))
+from mergesort import mergesort_wrapper_2
+l = deepcopy(l_cp)
+start_time = time.time()
+l=mergesort_wrapper_2(l)
+print("mergesort sort parellel: --- %s seconds ---" % (time.time() - start_time))
 
 
 

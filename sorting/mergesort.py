@@ -1,3 +1,5 @@
+import threading
+
 def merge(l1, l2):
 	l3 = []
 	c1, c2 = 0, 0
@@ -35,6 +37,33 @@ def mergesort_wrapper(lst):
 	return mergesort(lst, 0, len(lst) -1)
 
 
+# second implementation, using multi thread to do merge sort
+def mergesort_2(lst, start, end, depth, result=None, index=None):
+	if depth == 3:
+		result[index] = mergesort(lst, start, end)
+	else:
+		split_point = (start + end) // 2
+		r= [None, None]
+		t1 = threading.Thread(target=mergesort_2, args= (lst, start, split_point, depth+1, r, 0)) 
+		t2 = threading.Thread(target=mergesort_2, args= (lst, split_point+1, end, depth+1, r, 1))
+		t1.start()
+		t2.start()
+		t1.join()
+		t2.join()
+		if result is not None:
+			result[index] = merge(r[0], r[1])
+		else:
+			return merge(r[0], r[1])
+
+
+
+def mergesort_wrapper_2(lst):
+	return mergesort_2(lst, 0, len(lst)-1, 0)
+
+
 l = [1,23,4,5,11, 6,2 ,2,4,4]
-l = mergesort_wrapper(l)
+l = mergesort_wrapper_2(l)
 print(l)
+
+
+
