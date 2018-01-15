@@ -19,15 +19,10 @@ n4.print_content()
 def reverse(head):
 	result = None
 	while(head != None):
-		if result is None:
-			result = head
-			head = head.next
-			result.next = None
-		else:
-			temp = head.next
-			head.next = result
-			result = head
-			head = temp
+		temp = head.next
+		head.next = result
+		result = head
+		head = temp
 	return result			
 
 n4 = reverse(n4)
